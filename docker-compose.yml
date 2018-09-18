@@ -1,0 +1,24 @@
+version: '2.1'
+
+services:
+  mysql80X:
+    # jdbc:mysql://localhost:33081/guest?user=guest&password=guest
+    container_name: mysql80X
+    image: mysql:8
+    ports:
+      - "33081:3306"
+    env_file: .env
+    command: [mysqld, --character-set-server=utf8, --collation-server=utf8_unicode_ci, --log-bin-trust-function-creators=true, --default_authentication_plugin=mysql_native_password]
+    healthcheck:
+      test: "exit 0"
+
+  mongo32:
+    container_name: mongo32
+    image: tutum/mongodb:3.2
+    ports:
+      - "27117:27017"
+      - "28017:28017"
+    env_file: .env
+    healthcheck:
+      test: "exit 0"
+
